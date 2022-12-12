@@ -1,3 +1,7 @@
 ---------------------------------------------------------------------------------------------------------
 
 > $  npm create vite@latest name-app //--------------// Instalação do react com vite
+
+> $  npm install //--------------// Instalação dos módulos npm
+
+> $  npm run dev //--------------// Executa o projeto react 
