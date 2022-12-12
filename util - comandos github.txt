@@ -7,4 +7,10 @@
 > $  git remote add origin https://github.com/kayque-willy/react-ts.git
 > $  git push -u origin main
 
+---------------------------------------------------------------------------------------------------------
+
+> $  git clone https://github.com/kayque-willy/react-ts.git 
+
+---------------------------------------------------------------------------------------------------------
+
 > $ git config --global user.name "kayque-willy@hotmail.com"
