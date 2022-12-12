@@ -23,9 +23,11 @@ function App() {
 
   return (
     <div>
-      <a href="/">Home </a>
-      <a href="/cart">Cart </a>
-      <a href="/catalog">Catalog</a>
+      <nav>
+        <a href="/">Home </a>
+        <a href="/cart">Cart </a>
+        <a href="/catalog">Catalog</a>
+      </nav>
       <AppRoutes />
     </div>
     // <div>
