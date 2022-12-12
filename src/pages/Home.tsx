@@ -22,9 +22,6 @@ function Home() {
       <div>
         <h1>App React TypeScript</h1>
         <h2>Tweeter</h2>
-        {/* <Tweet text="Texto do Tweet 1" title="Título do Tweet 1" />
-              <Tweet text="texto do Tweet 2" title="Título do Tweet 2" />
-              <Tweet text="Texto do Tweet 3" /> */}
         {tweets.map((tweet) => {
           return <Tweet text={tweet} />;
         })}
