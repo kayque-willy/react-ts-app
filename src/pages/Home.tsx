@@ -1,28 +1,40 @@
 import { useState } from "react";
 import { Tweet, TweetProps } from "../components/Tweet";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import "../assets/Button.css";
 
-function Home() {
-  // Cria um array de string que representa os tweets
-  const [tweets, setTweets] = useState<TweetProps[]>([
-    {
-      id: 1,
-      title: "Título do Tweet 1",
-      text: "Texto do Tweet 2",
-    },
-    {
-      id: 2,
-      title: "Título do Tweet 2",
-      text: "Texto do Tweet 2",
-    },
-  ]);
+function Home(props: TweetProps) {
+  // const [tweets, setTweets] = useState<TweetProps[]>([
+  //   {
+  //     id: 1,
+  //     title: "Título do Tweet 1",
+  //     text: "Texto do Tweet 2",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Título do Tweet 2",
+  //     text: "Texto do Tweet 2",
+  //   },
+  // ]);
   // const [tweets, setTweets] = useState<string[]>(["Tweet 1", "Tweet 2"]);
-  // Constante de controle do número do tweet
-  var [tweetNumber, setTweetNumber] = useState(2);
+  
   // Navegação
   let navigate = useNavigate();
+  
+  // Estado da navegação
+  const { state } = useLocation();
+  
+  // Cria um array de string que representa os tweets
+  const [tweets, setTweets] = useState<TweetProps[]>(state ? state : []);
+  
+  // Constante de controle do número do tweet
+  var [tweetNumber, setTweetNumber] = useState(2);
+
+  function goForm() {
+    // navigate("/edit");
+    navigate("/edit", { state: tweets });
+  }
 
   function createTweet() {
     let newTweet = {
@@ -53,10 +65,6 @@ function Home() {
     }
   }
 
-  function goForm() {
-    navigate("/edit");
-  }
-
   // Renderiza a pagina
   return (
     <div>
@@ -72,7 +80,7 @@ function Home() {
         );
       })}
       <p>Fim da lista!</p>
-      {/* <button className="buttonTweet" onClick={createTweet}> */}
+      {/* <button className="buttonTweet" onClick={createTweet}></button> */}
       <button className="buttonTweet" onClick={goForm}>
         Adicionar Tweet
       </button>
