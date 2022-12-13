@@ -10,7 +10,6 @@ export function Tweet(props: TweetProps) {
       <h2>{props.id}</h2>
       <h3>{props.title}</h3>
       <p>{props.text}</p>
-      <p>Texto adicional...</p>
     </div>
   );
 }

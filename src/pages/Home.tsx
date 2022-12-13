@@ -35,7 +35,7 @@ function Home() {
   return (
     <div>
       <h1>App React TypeScript</h1>
-      <h2>Tweeter</h2>
+      <h2>Twitter</h2>
       {tweets.map((tweet) => {
         return (
           <>
