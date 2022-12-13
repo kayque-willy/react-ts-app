@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import "../assets/Button.css";
 
-function Home(props: TweetProps) {
+function Home() {
   // Navegação
   let navigate = useNavigate();
   
