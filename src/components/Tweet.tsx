@@ -1,4 +1,4 @@
-type TweetProps = {
+export type TweetProps = {
     id : number;
     title?: string;
     text: string;
