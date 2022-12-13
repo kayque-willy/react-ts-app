@@ -1,19 +1,28 @@
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { TweetProps } from "../components/Tweet";
 
 export function TweetForm() {
-  var newTweet = {
-    id: 0,
-    title: "Título",
-    text: "Texto do twitter",
-  };
+  var [title, setTitle] = useState("Título");
+  var [text, setText] = useState("Texto do twitter");
 
   const { state } = useLocation();
 
   let navigate = useNavigate();
 
+  function handleChange(event: any) {
+    console.log(event.target.value);
+  }
+
   function submit() {
+    let newTweet = {
+      id: 0,
+      title: title,
+      text: text,
+    };
     var newState = [];
     var lenght = Object.keys(state).length;
+
     if (lenght > 0) {
       let lastElement = state.slice(-1);
       newTweet.id = lastElement[0].id + 1;
@@ -22,6 +31,7 @@ export function TweetForm() {
       newTweet.id = 1;
       newState = [newTweet];
     }
+    
     navigate("/", { state: newState });
   }
 
@@ -31,11 +41,22 @@ export function TweetForm() {
       <form onSubmit={submit}>
         <fieldset>
           <label>Título </label>
-          <input id="title" type="text" name="title" value={newTweet.title} />
+          <input
+            id="title"
+            type="text"
+            name="title"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
         </fieldset>
         <fieldset>
           <label>Texto </label>
-          <textarea id="text" name="text" value={newTweet.text} />
+          <textarea
+            id="text"
+            name="text"
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+          />
         </fieldset>
         <input type="submit" value="Submit" />
       </form>

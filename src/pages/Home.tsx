@@ -45,7 +45,6 @@ function Home() {
           </>
         );
       })}
-      <p>Fim da lista!</p>
       <button className="buttonTweet" onClick={goForm}>
         Adicionar Tweet
       </button>
