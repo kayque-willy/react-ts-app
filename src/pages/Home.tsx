@@ -26,7 +26,7 @@ function Home() {
       <h1>App React TypeScript</h1>
       <h2>Tweeter</h2>
       {tweets.map((tweet) => {
-        return <Tweet text={tweet} />;
+        return <Tweet text={tweet} id={1}/>;
       })}
       <p>Fim da lista!</p>
       <button className="buttonTweet" onClick={createTweet} >

@@ -1,5 +1,6 @@
 type TweetProps = {
-    title?: string
+    id : number;
+    title?: string;
     text: string;
 }
 
