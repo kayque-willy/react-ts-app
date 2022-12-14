@@ -21,7 +21,7 @@ function Home() {
 
   // Navega pro formulário
   function goForm() {
-    navigate("/edit", { state: tweets });
+    navigate("/edit");
   }
 
   // Edit Tweet

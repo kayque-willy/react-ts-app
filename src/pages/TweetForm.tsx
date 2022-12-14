@@ -3,39 +3,60 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { TweetProps } from "../components/Tweet";
 
 export function TweetForm() {
-  var [title, setTitle] = useState("Título");
-  var [text, setText] = useState("Texto do twitter");
-  
   let navigate = useNavigate();
   const { state } = useLocation();
+  console.log(state);
+
+  var [title, setTitle] = useState(state ? state.title : "Título");
+  var [text, setText] = useState(state ? state.text : "Texto do twitter");
 
   const getTweets = localStorage.getItem("tweets");
-  const [tweets, setTweets] = useState<TweetProps[]>(getTweets ? JSON.parse(getTweets) : []);
+
+  const [tweets, setTweets] = useState<TweetProps[]>(
+    getTweets ? JSON.parse(getTweets) : []
+  );
 
   useEffect(() => {
     console.log("State: " + state);
     localStorage.setItem("tweets", JSON.stringify(tweets));
   });
-  
-  async function submit() {
-    let newTweet = {
-      id: 0,
-      title: title,
-      text: text,
-    };
-    var newState = [];
-    var lenght = Object.keys(state).length;
 
-    if (lenght > 0) {
-      let lastElement = state.slice(-1);
-      newTweet.id = lastElement[0].id + 1;
-      newState = [...state, newTweet];
+  async function submit() {
+    if (!state) {
+      let newTweet = {
+        id: 0,
+        title: title,
+        text: text,
+      };
+      var newState = [];
+      var lenght = Object.keys(tweets).length;
+
+      if (lenght > 0) {
+        let lastElement = tweets.slice(-1);
+        newTweet.id = lastElement[0].id + 1;
+        newState = [...tweets, newTweet];
+      } else {
+        newTweet.id = 1;
+        newState = [newTweet];
+      }
+      await setTweets(newState);
     } else {
-      newTweet.id = 1;
-      newState = [newTweet];
+      var index = findId(state.id);
+      if (index !== -1) {
+        tweets[index].text = text;
+        tweets[index].title = title;
+      }
+      await setTweets(tweets);
+      await localStorage.setItem("tweets", JSON.stringify(tweets));
     }
-    await setTweets(newState);
-    navigate("/");
+    navigate("/", { state: null });
+  }
+
+  function findId(id: number) {
+    const index = tweets.findIndex((tweet) => {
+      return tweet.id === id;
+    });
+    return index;
   }
 
   return (
