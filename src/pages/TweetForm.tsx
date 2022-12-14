@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { TweetProps } from "../components/Tweet";
 
 export function TweetForm() {
   var [title, setTitle] = useState("Título");
   var [text, setText] = useState("Texto do twitter");
-
+  
+  let navigate = useNavigate();
   const { state } = useLocation();
 
-  let navigate = useNavigate();
+  const getTweets = localStorage.getItem("tweets");
+  const [tweets, setTweets] = useState<TweetProps[]>(getTweets ? JSON.parse(getTweets) : []);
 
-  function handleChange(event: any) {
-    console.log(event.target.value);
-  }
-
-  function submit() {
+  useEffect(() => {
+    console.log("State: " + state);
+    localStorage.setItem("tweets", JSON.stringify(tweets));
+  });
+  
+  async function submit() {
     let newTweet = {
       id: 0,
       title: title,
@@ -31,8 +34,8 @@ export function TweetForm() {
       newTweet.id = 1;
       newState = [newTweet];
     }
-    
-    navigate("/", { state: newState });
+    await setTweets(newState);
+    navigate("/");
   }
 
   return (
