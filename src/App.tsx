@@ -6,8 +6,7 @@ function App() {
     <div>
       <nav>
         <a href="/">Home </a>
-        <a href="/cart">Cart </a>
-        <a href="/catalog">Catalog</a>
+        <a href="/about">About </a>
       </nav>
       <AppRoutes />
     </div>

@@ -8,13 +8,13 @@ function Home() {
   // Navegação
   let navigate = useNavigate();
 
-  // Estado da navegação
+  // Armazenamento local
   const getTweets = localStorage.getItem("tweets");
 
   // Cria um array de string que representa os tweets
   const [tweets, setTweets] = useState<TweetProps[]>(getTweets ? JSON.parse(getTweets) : []);
 
-  //Armazena o array a cada modificação
+  //Armazena o array a cada modificação no componente
   useEffect(() => {
     localStorage.setItem("tweets", JSON.stringify(tweets));
   });
@@ -38,7 +38,7 @@ function Home() {
     }
   }
 
-  // Find ID
+  // Busca pelo Id do Tweet no Array
   function findId(id: number) {
     const index = tweets.findIndex((tweet) => {
       return tweet.id === id;
@@ -49,14 +49,14 @@ function Home() {
   // Renderiza a pagina
   return (
     <div>
-      <h1>App React TypeScript</h1>
+      <h1>App - React TypeScript</h1>
       <h2>Twitter</h2>
       {tweets.map((tweet) => {
         return (
           <>
             <Tweet {...tweet} />
-            <button onClick={() => removeTweet(tweet.id)}>remover</button>
             <button onClick={() => editTweet(tweet)}>editar</button>
+            <button onClick={() => removeTweet(tweet.id)}>remover</button>
             <hr></hr>
           </>
         );

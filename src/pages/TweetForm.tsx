@@ -3,25 +3,32 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { TweetProps } from "../components/Tweet";
 
 export function TweetForm() {
+  // Navegação
   let navigate = useNavigate();
-  const { state } = useLocation();
-  console.log(state);
 
+  // Estado da navegação onde são enviados os parãmetros por componentes por meio do state
+  const { state } = useLocation();
+
+  // Campos editáveis 
   var [title, setTitle] = useState(state ? state.title : "Título");
   var [text, setText] = useState(state ? state.text : "Texto do twitter");
 
+  // Armazenamento local
   const getTweets = localStorage.getItem("tweets");
 
+  // Cria um array de string que representa os tweets
   const [tweets, setTweets] = useState<TweetProps[]>(
     getTweets ? JSON.parse(getTweets) : []
   );
 
+  //Armazena o array a cada modificação no componente
   useEffect(() => {
-    console.log("State: " + state);
     localStorage.setItem("tweets", JSON.stringify(tweets));
   });
 
+  // Salva o Tweet
   async function submit() {
+    // Cria novo Tweet
     if (!state) {
       let newTweet = {
         id: 0,
@@ -40,6 +47,7 @@ export function TweetForm() {
         newState = [newTweet];
       }
       await setTweets(newState);
+      // Edita um Tweet 
     } else {
       var index = findId(state.id);
       if (index !== -1) {
@@ -52,6 +60,7 @@ export function TweetForm() {
     navigate("/", { state: null });
   }
 
+  // Busca pelo Id do Tweet no Array
   function findId(id: number) {
     const index = tweets.findIndex((tweet) => {
       return tweet.id === id;
@@ -59,6 +68,7 @@ export function TweetForm() {
     return index;
   }
 
+  // Renderiza o formulário
   return (
     <>
       <h1>Tweet Form</h1>

@@ -7,8 +7,7 @@ export type TweetProps = {
 export function Tweet(props: TweetProps) {
   return (
     <div>
-      <h2>{props.id}</h2>
-      <h3>{props.title}</h3>
+      <h2>{props.id} - {props.title}</h2>
       <p>{props.text}</p>
     </div>
   );
