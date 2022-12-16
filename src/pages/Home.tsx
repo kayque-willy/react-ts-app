@@ -12,7 +12,9 @@ function Home() {
   const getTweets = localStorage.getItem("tweets");
 
   // Cria um array de string que representa os tweets
-  const [tweets, setTweets] = useState<TweetProps[]>(getTweets ? JSON.parse(getTweets) : []);
+  const [tweets, setTweets] = useState<TweetProps[]>(
+    getTweets ? JSON.parse(getTweets) : []
+  );
 
   //Armazena o array a cada modificação no componente
   useEffect(() => {
@@ -61,6 +63,7 @@ function Home() {
           </>
         );
       })}
+      {tweets.length === 0 && <p>Sem Tweets!</p>}
       <button className="buttonTweet" onClick={goForm}>
         Adicionar Tweet
       </button>
