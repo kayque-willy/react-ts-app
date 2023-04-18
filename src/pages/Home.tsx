@@ -50,24 +50,27 @@ function Home() {
 
   // Renderiza a pagina
   return (
-    <div>
-      <h1>App - React TypeScript</h1>
-      <h2>Twitter</h2>
-      {tweets.map((tweet) => {
-        return (
-          <>
-            <Tweet {...tweet} />
-            <button onClick={() => editTweet(tweet)}>editar</button>
-            <button onClick={() => removeTweet(tweet.id)}>remover</button>
-            <hr></hr>
-          </>
-        );
-      })}
-      {tweets.length === 0 && <p>Sem Tweets!</p>}
-      <button className="buttonTweet" onClick={goForm}>
+    <main>
+      <header>
+        <h1>App - React TypeScript</h1>
+        <h2>Twitter</h2>
+      </header>
+      <section>
+        {tweets.map((tweet) => {
+          return (
+            <article>
+              <Tweet {...tweet} />
+              <button className="buttonEdit" onClick={() => editTweet(tweet)}>editar</button>
+              <button className="buttonRemove" onClick={() => removeTweet(tweet.id)}>remover</button>
+            </article>
+          );
+        })}
+        {tweets.length === 0 && <p>Sem Tweets!</p>}
+      </section>
+      <button className="buttonAdd" onClick={goForm}>
         Adicionar Tweet
       </button>
-    </div>
+    </main>
   );
 }
 

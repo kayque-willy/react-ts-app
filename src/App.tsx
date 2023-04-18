@@ -3,13 +3,20 @@ import { AppRoutes } from "./Routes";
 
 function App() {
   return (
-    <div>
+    <>
       <nav>
-        <a href="/">Home </a>
-        <a href="/about">About </a>
+        <ul>
+          <li>
+            <a href="/">Home </a>
+          </li>
+          <li>
+            <a href="/about">About </a>
+          </li>
+        </ul>
       </nav>
       <AppRoutes />
-    </div>
+      <footer> © 2023 - Author: <a href="https://github.com/kayque-willy">Kayque Oliveira</a></footer>
+    </>
   );
 }
 

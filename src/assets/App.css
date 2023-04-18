@@ -1,5 +1,23 @@
-body{
+body {
     background: gray;
     color: rgb(253, 253, 253);
     text-align: center;
+}
+
+footer {
+    margin-top: 5%;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.buttonAdd {
+}
+
+.buttonEdit {
+}
+
+.buttonRemove {
 }
