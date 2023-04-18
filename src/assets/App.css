@@ -1,23 +1,130 @@
 body {
-    background: gray;
-    color: rgb(253, 253, 253);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(247, 247, 247, 1) 100%);
     text-align: center;
+    margin: 0;
+}
+
+html {
+    background-color: #0000ff82;
+}
+
+#root {
+    background-color: #0000ff82;
+}
+
+header {
+    margin-top: 3%;
+}
+
+section {
+    /* flex-wrap e display servem para deixar responsivo */
+    flex-wrap: wrap;
+    display: flex;
+    /* flex-drection serve para informar a orientação dos itens, horizontal, vertical, coluna, etc */
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2%;
+    margin-top: 1%;
+    background-color: #c0beff;
+}
+
+article {
+    width: 30%;
+    background-color: gainsboro;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 2%;
+    padding-left: 1%;
+    border-radius: 30px;
+    margin: 1%;
+}
+
+h1 {
+    margin: 0;
+}
+
+h1,
+h2 {
+    color: white;
+    text-shadow: 1px 1px 2px black;
+}
+
+h3 {
+    margin-top: 2%;
+    background-color: rgb(147 173 255);
+    border-radius: 25px;
+}
+
+p {
+    overflow-wrap: break-word;
+    text-align: justify;
+    padding-left: 6%;
+    padding-right: 6%;
+}
+
+ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 footer {
     margin-top: 5%;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+span {
+    font-weight: bold;
 }
 
-.buttonAdd {
+form {
+    border-radius: 30px;
+    min-width: 50%;
+    background-color: gainsboro;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.buttonEdit {
+.form-bg {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
-.buttonRemove {
+fieldset {
+    display: flex;
+    margin: 1%;
+    max-width: 79%;
+    flex-direction: column;
+    border-width: 0;
+}
+
+input {
+    border-width: 0;
+    border-radius: 30px;
+    background-color: #ffffff;
+}
+
+textarea {
+    resize: none;
+    padding: 5%;
+    border-width: 0;
+    border-radius: 30px;
+}
+
+label {
+    font-weight: bold;
+    margin: 2%;
+}
+
+nav {
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+a {
+    color: white;
 }

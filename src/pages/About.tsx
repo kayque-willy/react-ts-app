@@ -1,7 +1,8 @@
 import Message from "../components/Message";
 
 export function About() {
-  // Renderiza o componente passando o props por parâmetro
+
+  // ------------------- Renderiza o componente passando o props por parâmetro -------------------
   return (
     <main>
       <header>

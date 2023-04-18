@@ -2,6 +2,14 @@
 
 > $  npm install //--------------// Instalação dos módulos npm no diretório
 
+> $  npm install react-icons --save //--------------// Instalação dos icones
+
+> $  npm i --save @fortawesome/fontawesome-svg-core         //--------------// Instalação dos icones Font Awesome
+
+> $  npm install --save @fortawesome/free-solid-svg-icons   //--------------// Instalação dos icones Font Awesome
+
+> $  npm install --save @fortawesome/react-fontawesome   //--------------// Instalação dos icones Font Awesome
+
 -------------------------------------------CRIAÇÃO DO PROJETO---------------------------------------------------
 
 > $  npm create vite@latest name-app //--------------// Instalação do react com vite

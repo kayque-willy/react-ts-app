@@ -1,4 +1,6 @@
 import "./assets/App.css";
+import "./assets/Button.css";
+
 import { AppRoutes } from "./Routes";
 
 function App() {

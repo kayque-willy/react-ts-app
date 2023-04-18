@@ -68,32 +68,34 @@ export function TweetForm() {
     return index;
   }
 
-  // Renderiza o formulário
+  // ----------------------- Renderiza o formulário -----------------------
   return (
     <>
       <h1>Tweet Form</h1>
-      <form onSubmit={submit}>
-        <fieldset>
-          <label>Título </label>
-          <input
-            id="title"
-            type="text"
-            name="title"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-        </fieldset>
-        <fieldset>
-          <label>Texto </label>
-          <textarea
-            id="text"
-            name="text"
-            value={text}
-            onChange={(event) => setText(event.target.value)}
-          />
-        </fieldset>
-        <input type="submit" value="Submit" />
-      </form>
+      <div className="form-bg">
+        <form onSubmit={submit}>
+          <fieldset>
+            <label>Título </label>
+            <input
+              id="title"
+              type="text"
+              name="title"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Texto </label>
+            <textarea
+              id="text"
+              name="text"
+              value={text}
+              onChange={(event) => setText(event.target.value)}
+            />
+          </fieldset>
+          <button type="submit" value="Submit">{state ? 'Editar' : 'Adicionar'}</button>
+        </form>
+      </div>
     </>
   );
 }

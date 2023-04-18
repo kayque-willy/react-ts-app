@@ -1,6 +1,48 @@
+button {
+    background-color: #405cf5;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset, rgba(50, 50, 93, 0.1) 0 2px 5px 0,
+        rgba(0, 0, 0, 0.07) 0 1px 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
+    font-size: 0.9em;
+    height: 35px;
+    margin: 12px 0 0;
+    padding: 0 15px;
+    text-align: center;
+    transition: all 0.2s, box-shadow 0.08s ease-in;
+    touch-action: manipulation;
+    margin: 2%;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+}
+
+button:disabled {
+    cursor: default;
+}
+
+button:focus {
+    box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset, rgba(50, 50, 93, 0.2) 0 6px 15px 0,
+        rgba(0, 0, 0, 0.1) 0 2px 2px 0, rgba(50, 151, 211, 0.3) 0 0 0 4px;
+}
+
 .buttonTweet {
     background: "#8257e6";
     border: 8;
     padding: "6px 1px";
     color: "#FFF";
+}
+
+.buttonAdd {
+    margin-top: 0%;
+    background-color: #008000;
+}
+
+.buttonEdit {
+}
+
+.buttonRemove {
+    background-color: red;
 }

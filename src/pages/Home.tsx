@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Tweet, TweetProps } from "../components/Tweet";
 import { useNavigate } from "react-router-dom";
-
-import "../assets/Button.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 function Home() {
   // Navegação
@@ -48,28 +48,30 @@ function Home() {
     return index;
   }
 
-  // Renderiza a pagina
+  // --------------------------- Renderiza a pagina ---------------------------
   return (
     <main>
       <header>
         <h1>App - React TypeScript</h1>
         <h2>Twitter</h2>
       </header>
+      <button className="buttonAdd" onClick={goForm}>
+        Adicionar Tweet
+      </button>
       <section>
-        {tweets.map((tweet) => {
+        {tweets.slice(0).reverse().map((tweet) => {
           return (
             <article>
               <Tweet {...tweet} />
               <button className="buttonEdit" onClick={() => editTweet(tweet)}>editar</button>
-              <button className="buttonRemove" onClick={() => removeTweet(tweet.id)}>remover</button>
+              <button className="buttonRemove" onClick={() => removeTweet(tweet.id)}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
             </article>
           );
         })}
-        {tweets.length === 0 && <p>Sem Tweets!</p>}
+        {tweets.length === 0 && <span>Sem Tweets!</span>}
       </section>
-      <button className="buttonAdd" onClick={goForm}>
-        Adicionar Tweet
-      </button>
     </main>
   );
 }
