@@ -91,6 +91,7 @@ export function TweetForm() {
               name="text"
               value={text}
               onChange={(event) => setText(event.target.value)}
+              maxLength={200}
             />
           </fieldset>
           <button type="submit" value="Submit">{state ? 'Editar' : 'Adicionar'}</button>

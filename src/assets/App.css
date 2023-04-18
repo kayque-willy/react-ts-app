@@ -51,16 +51,18 @@ h2 {
 }
 
 h3 {
+    margin-bottom: 6%;
     margin-top: 2%;
     background-color: rgb(147 173 255);
     border-radius: 25px;
 }
 
 p {
+    background-color: rgb(147 173 255);
     overflow-wrap: break-word;
     text-align: justify;
-    padding-left: 6%;
-    padding-right: 6%;
+    border-radius: 20px;
+    padding: 5%;
 }
 
 ul {
@@ -110,10 +112,13 @@ input {
 }
 
 textarea {
+    margin-left: -4%;
     resize: none;
     padding: 5%;
     border-width: 0;
     border-radius: 30px;
+    width: 20em;
+    height: 7em;
 }
 
 label {
