@@ -71,11 +71,10 @@ export function TweetForm() {
   // ----------------------- Renderiza o formulário -----------------------
   return (
     <>
-      <h1>Tweet Form</h1>
+      {/* <h1>Tweet Form</h1> */}
       <div className="form-bg">
         <form onSubmit={submit}>
           <fieldset>
-            <label>Título </label>
             <input
               id="title"
               type="text"
@@ -85,7 +84,6 @@ export function TweetForm() {
             />
           </fieldset>
           <fieldset>
-            <label>Texto </label>
             <textarea
               id="text"
               name="text"

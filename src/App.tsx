@@ -1,23 +1,16 @@
 import "./assets/App.css";
 import "./assets/Button.css";
+import { Footer } from "./components/Footer";
+import { Header } from "./components/Header";
 
 import { AppRoutes } from "./Routes";
 
 function App() {
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <a href="/">Home </a>
-          </li>
-          <li>
-            <a href="/about">About </a>
-          </li>
-        </ul>
-      </nav>
+      <Header />
       <AppRoutes />
-      <footer> © 2023 - Author: <a href="https://github.com/kayque-willy">Kayque Oliveira</a></footer>
+      <Footer />
     </>
   );
 }

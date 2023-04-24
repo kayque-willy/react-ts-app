@@ -3,6 +3,7 @@ import { Tweet, TweetProps } from "../components/Tweet";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { TweetForm } from "./TweetForm";
 
 function Home() {
   // Navegação
@@ -51,13 +52,10 @@ function Home() {
   // --------------------------- Renderiza a pagina ---------------------------
   return (
     <main>
-      <header>
-        <h1>App - React TypeScript</h1>
-        <h2>Twitter</h2>
-      </header>
-      <button className="buttonAdd" onClick={goForm}>
+      {/* <button className="buttonAdd" onClick={goForm}>
         Adicionar Tweet
-      </button>
+      </button> */}
+      <TweetForm />
       <section>
         {tweets.slice(0).reverse().map((tweet) => {
           return (
