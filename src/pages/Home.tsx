@@ -26,6 +26,7 @@ export default function Home() {
   useEffect(() => {
     console.log("useEffect");
     localStorage.setItem("tweets", JSON.stringify(tweets));
+    console.log(tweets);
   }, [tweets]);
 
   // Navega pra página About
@@ -68,6 +69,7 @@ export default function Home() {
         id: 0,
         title: 'You',
         text: text,
+        date: new Date().toUTCString()
       };
       let newList = [];
       let lenght = Object.keys(tweets).length;
