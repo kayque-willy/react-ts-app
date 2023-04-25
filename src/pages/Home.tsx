@@ -90,6 +90,7 @@ export default function Home() {
       if (index !== -1) {
         tweets[index].text = text ? text : "";
         tweets[index].title = 'You';
+        tweets[index].date = new Date().toUTCString();
       }
       setTweets(tweets);
       setId(-1);
