@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import { Tweet, TweetProps } from "../components/Tweet";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import Avatar from "react-avatar";
 
 export default function Home() {
 
+  // Armazenamento local
+  const getTweets = localStorage.getItem("tweets");
+
+  // -------------------------------- Hooks --------------------------------
   // Campos editáveis 
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState<string>("");
@@ -13,9 +18,6 @@ export default function Home() {
 
   // Navegação
   let navigate = useNavigate();
-
-  // Armazenamento local
-  const getTweets = localStorage.getItem("tweets");
 
   // Cria um array de string que representa os tweets
   const [tweets, setTweets] = useState<TweetProps[]>(
@@ -29,17 +31,72 @@ export default function Home() {
     console.log(tweets);
   }, [tweets]);
 
-  // Navega pra página About
-  function goAbout() {
-    navigate("/about");
-  }
-
-  // Edit Tweet
-  const editTweet = (tweet: TweetProps) => {
+  // -------------------------------- Handlers --------------------------------
+  // Vai para edição do Tweet
+  const handleEdit = (tweet: TweetProps) => {
     setId(tweet.id);
     setText(tweet.text);
     setEdit(true);
     window.scrollTo(0, 0);
+  }
+
+  // Salva o tweet
+  const handleSubmit = (event: any) => {
+    // Necessário para evitar que a submissão do formulário atulize a página
+    event.preventDefault();
+    if (!edit) {
+      // Cria novo Tweet
+      addTweet();
+    } else {
+      // Edita um Tweet 
+      editTweet();
+    }
+  }
+
+  // -------------------------------- Funções --------------------------------
+  // Busca pelo Id do Tweet no Array
+  function findId(id: number) {
+    const index = tweets.findIndex((tweet) => {
+      return tweet.id === id;
+    });
+    return index;
+  }
+
+  // Cria novo Tweet
+  function addTweet() {
+    let newTweet = {
+      id: 0,
+      title: 'You',
+      text: text,
+      date: new Date().toUTCString()
+    };
+    let newList = [];
+    let lenght = Object.keys(tweets).length;
+
+    if (lenght > 0) {
+      let lastElement = tweets.slice(-1);
+      newTweet.id = lastElement[0].id + 1;
+      newList = [...tweets, newTweet];
+    } else {
+      newTweet.id = 1;
+      newList = [newTweet];
+    }
+
+    setTweets(newList);
+  }
+
+  // Edita um Tweet 
+  function editTweet() {
+    let index = findId(id ? id : -1);
+    if (index !== -1) {
+      tweets[index].text = text ? text : "";
+      tweets[index].title = 'You';
+      tweets[index].date = new Date().toUTCString();
+    }
+    setTweets(tweets);
+    setId(-1);
+    setText("");
+    setEdit(false);
   }
 
   // Remove Tweet
@@ -51,60 +108,18 @@ export default function Home() {
     }
   }
 
-  // Busca pelo Id do Tweet no Array
-  function findId(id: number) {
-    const index = tweets.findIndex((tweet) => {
-      return tweet.id === id;
-    });
-    return index;
-  }
-
-  // Salva o tweet
-  const submit = (event: any) => {
-    // Necessário para evitar que a submissão do formulário atulize a página
-    event.preventDefault();
-    // Cria novo Tweet
-    if (!edit) {
-      let newTweet = {
-        id: 0,
-        title: 'You',
-        text: text,
-        date: new Date().toUTCString()
-      };
-      let newList = [];
-      let lenght = Object.keys(tweets).length;
-
-      if (lenght > 0) {
-        let lastElement = tweets.slice(-1);
-        newTweet.id = lastElement[0].id + 1;
-        newList = [...tweets, newTweet];
-      } else {
-        newTweet.id = 1;
-        newList = [newTweet];
-      }
-      setTweets(newList);
-      // Edita um Tweet 
-    } else {
-      let index = findId(id ? id : -1);
-
-      if (index !== -1) {
-        tweets[index].text = text ? text : "";
-        tweets[index].title = 'You';
-        tweets[index].date = new Date().toUTCString();
-      }
-      setTweets(tweets);
-      setId(-1);
-      setText("");
-      setEdit(false);
-    }
+  // Navega pra página About
+  function goAbout() {
+    navigate("/about");
   }
 
   // --------------------------- Renderiza a pagina ---------------------------
   return (
     <main>
       <section className="form-bg">
-        <form onSubmit={event => { submit(event) }}>
-          <fieldset>
+        <form onSubmit={event => { handleSubmit(event) }}>
+          <fieldset className="form-field">
+            <Avatar className="form-avatar" name="Tweet" size="50" round="30px" />
             <textarea
               id="text"
               name="text"
@@ -115,24 +130,30 @@ export default function Home() {
               required
             />
           </fieldset>
-          <button type="submit" value="submit">{edit ? 'Editar Tweet' : 'Tweetar'}</button>
+          <div className="form-button">
+            <button type="submit" value="submit">{edit ? 'Editar Tweet' : 'Tweetar'}</button>
+          </div>
         </form>
       </section>
 
       <section>
-        {tweets.slice(0).reverse().map((tweet, index) => {
+        {tweets.slice(0).reverse().map((tweet) => {
           return (
-            <article key={index}>
+            <article className="tweet" key={tweet.id}>
               <Tweet {...tweet} />
-              <button className="buttonEdit" onClick={() => editTweet(tweet)}>editar</button>
-              <button className="buttonRemove" onClick={() => removeTweet(tweet.id)}>
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
+              <div className="panel-edition">
+                <button className="buttonEdit" onClick={() => handleEdit(tweet)}>
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
+                <button className="buttonRemove" onClick={() => removeTweet(tweet.id)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </div>
             </article>
           );
         })}
-        {tweets.length === 0 && <span>Sem Tweets!</span>}
+        {tweets.length === 0 && <span className="notFound">Sem Tweets!</span>}
       </section>
     </main>
-  );
+  )
 }
