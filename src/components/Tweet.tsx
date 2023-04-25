@@ -1,7 +1,7 @@
 export type TweetProps = {
   id: number;
   title?: string;
-  date: string;
+  date?: string;
   text: string;
 };
 
