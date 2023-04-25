@@ -40,9 +40,13 @@ button:focus {
     background-color: #008000;
 }
 
-.buttonEdit {
+.buttonEdit,
+.buttonRemove {
+    background-color: unset;
 }
 
-.buttonRemove {
-    background-color: red;
+.buttonEdit {
+    padding: 0;
+    padding-right: 5%;
+    padding-left: 20%;
 }

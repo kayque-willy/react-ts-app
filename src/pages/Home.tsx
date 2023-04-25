@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Tweet, TweetProps } from "../components/Tweet";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 import Avatar from "react-avatar";
+import { format } from 'date-fns';
 
 export default function Home() {
 
@@ -64,11 +65,13 @@ export default function Home() {
 
   // Cria novo Tweet
   function addTweet() {
+    let date = new Date();
+
     let newTweet = {
       id: 0,
       title: 'You',
       text: text,
-      date: new Date().toUTCString()
+      date: format(date, 'd MMMM')
     };
     let newList = [];
     let lenght = Object.keys(tweets).length;
@@ -81,8 +84,8 @@ export default function Home() {
       newTweet.id = 1;
       newList = [newTweet];
     }
-
     setTweets(newList);
+    clearFields();
   }
 
   // Edita um Tweet 
@@ -94,6 +97,10 @@ export default function Home() {
       tweets[index].date = new Date().toUTCString();
     }
     setTweets(tweets);
+    clearFields();
+  }
+
+  function clearFields() {
     setId(-1);
     setText("");
     setEdit(false);
@@ -146,7 +153,7 @@ export default function Home() {
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
                 <button className="buttonRemove" onClick={() => removeTweet(tweet.id)}>
-                  <FontAwesomeIcon icon={faTrash} />
+                  <FontAwesomeIcon icon={faClose} />
                 </button>
               </div>
             </article>
