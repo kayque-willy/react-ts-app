@@ -6,6 +6,9 @@ import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons'
 import Avatar from "react-avatar";
 import { format } from 'date-fns';
 import { useTimer } from 'react-timer-hook';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 export default function Home() {
 
@@ -48,6 +51,7 @@ export default function Home() {
   // Gerenciamento da lista automática
   const [facts, setFacts] = useState<TweetProps[]>([]);
   const [total, setTotal] = useState(0);
+  const [showAll, setShowAll] = useState(true);
 
   // Navegação
   let navigate = useNavigate();
@@ -125,6 +129,11 @@ export default function Home() {
     setFacts([]);
   }
 
+  // Modifica a exibição da lista
+  const handleNav = () => {
+
+  }
+
   // -------------------------------- Funções --------------------------------
   // Busca pelo Id do Tweet no Array
   function findId(id: number) {
@@ -156,6 +165,7 @@ export default function Home() {
       newList = [newTweet];
     }
     setTweets(newList);
+    console.log(newList);
     clearFields();
   }
 
@@ -213,10 +223,18 @@ export default function Home() {
           </div>
         </form>
       </section>
-      <div style={{ color: 'white' }}>
+      <Navbar>
+        <Container>
+          <Nav className="me-auto">
+            <Nav.Link className="button-nav" onClick={() => setShowAll(true)}>Home </Nav.Link>
+            <Nav.Link className="button-nav" onClick={() => setShowAll(false)}>Seus Tweets</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      <div className="timer" >
         Atualização: <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
       </div>
-      <div style={{ color: 'white' }}>
+      <div>
         {total > 0 &&
           <button onClick={() => handleUpdate()}>
             {total == 1 && <>{total} novo Tweet</>}
@@ -224,24 +242,48 @@ export default function Home() {
           </button>
         }
       </div>
-      <section>
-        {tweets.slice(0).reverse().map((tweet) => {
-          return (
-            <article className="tweet" key={tweet.id}>
-              <Tweet {...tweet} />
-              <div className="panel-edition">
-                <button className="buttonEdit" onClick={() => handleEdit(tweet)}>
-                  <FontAwesomeIcon icon={faEdit} />
-                </button>
-                <button className="buttonRemove" onClick={() => removeTweet(tweet.id)}>
-                  <FontAwesomeIcon icon={faClose} />
-                </button>
-              </div>
-            </article>
-          );
-        })}
-        {tweets.length === 0 && <span className="notFound">Sem Tweets!</span>}
-      </section>
+      {showAll === true &&
+        <section>
+          {tweets.slice(0).reverse().map((tweet) => {
+            return (
+              <article className="tweet" key={tweet.id}>
+                <Tweet {...tweet} />
+                <div className="panel-edition">
+                  {tweet.title === 'You' &&
+                    <button className="buttonEdit" onClick={() => handleEdit(tweet)}>
+                      <FontAwesomeIcon icon={faEdit} />
+                    </button>
+                  }
+                  <button className="buttonRemove" onClick={() => removeTweet(tweet.id)}>
+                    <FontAwesomeIcon icon={faClose} />
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+          {tweets.length === 0 && <span className="notFound">Sem Tweets!</span>}
+        </section>
+      }
+      {showAll === false &&
+        <section>
+          {tweets.slice(0).reverse().filter(tweet => (tweet.title === 'You')).map((tweet) => {
+            return (
+              <article className="tweet" key={tweet.id}>
+                <Tweet {...tweet} />
+                <div className="panel-edition">
+                  <button className="buttonEdit" onClick={() => handleEdit(tweet)}>
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                  <button className="buttonRemove" onClick={() => removeTweet(tweet.id)}>
+                    <FontAwesomeIcon icon={faClose} />
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+          {tweets.length === 0 && <span className="notFound">Sem Tweets!</span>}
+        </section>
+      }
     </main>
   )
 }

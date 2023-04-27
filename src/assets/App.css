@@ -69,6 +69,7 @@ span {
 
 a {
     color: white;
+    text-decoration: none;
 }
 
 p {
@@ -183,6 +184,20 @@ textarea {
     display: flex;
     margin-top: -2%;
     margin-left: -4%;
+}
+
+nav.navbar.navbar-expand.navbar-light {
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.timer {
+    color: #ffffff;
+}
+
+.message {
+    padding-right: 2%;
+    padding-left: 2%;
 }
 
 @media (max-width: 700px) {

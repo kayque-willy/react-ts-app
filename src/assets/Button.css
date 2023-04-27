@@ -50,3 +50,19 @@ button:focus {
     padding-right: 5%;
     padding-left: 20%;
 }
+
+.button-nav {
+    padding: 1%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    font-weight: bold;
+    border-bottom-width: 2px;
+    border-color: #ffffff;
+    border-bottom-style: solid;
+}
+
+a:focus {
+    background-color: #405cf5;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
