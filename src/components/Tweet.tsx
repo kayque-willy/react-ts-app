@@ -10,7 +10,7 @@ export type TweetProps = {
 export function Tweet(props: TweetProps) {
   return (
     <div className="tweet-panel" key={props.id}>
-      <Avatar className="tweet-avatar" name="Tweet" size="50" round="30px" />
+      <Avatar className="tweet-avatar" name={props.title} size="50" round="30px" />
       <div className="tweet-content">
         {props.title &&
           <div className="tweet-header">

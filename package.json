@@ -17,7 +17,8 @@
     "react-avatar": "^5.0.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
-    "react-router-dom": "^6.4.5"
+    "react-router-dom": "^6.4.5",
+    "react-timer-hook": "^3.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

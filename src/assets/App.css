@@ -158,15 +158,13 @@ textarea {
 
 .tweet-header {
     text-align: left;
+    min-width: 10em;
 }
 
 .tweet-panel {
     display: flex;
     width: 90%;
     margin-right: -6%;
-}
-
-.tweet-content {
 }
 
 .tweet-nick {
@@ -196,5 +194,15 @@ textarea {
 @media (max-width: 400px) {
     .tweet {
         min-width: 90%;
+    }
+
+    .panel-edition {
+        margin-left: -8%;
+    }
+}
+
+@media (min-width: 950px) {
+    .panel-edition {
+        margin-left: 4%;
     }
 }

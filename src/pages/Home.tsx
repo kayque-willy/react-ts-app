@@ -2,37 +2,102 @@ import { useEffect, useState } from "react";
 import { Tweet, TweetProps } from "../components/Tweet";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons'
 import Avatar from "react-avatar";
 import { format } from 'date-fns';
+import { useTimer } from 'react-timer-hook';
 
 export default function Home() {
 
-  // Armazenamento local
+  // -------------------------------- Timer --------------------------------
+  const expiryTimestamp = new Date();
+  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 60);
+
+  const {
+    seconds,
+    minutes,
+    hours,
+    days,
+    isRunning,
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({
+    autoStart: true,
+    // Aciona o handlerfacts a cada término do timer para adicionar tweets aleatórios
+    expiryTimestamp, onExpire: () => {
+      handleFacts();
+    }
+  });
+
+  // ------------------------- Armazenamento local -------------------------
   const getTweets = localStorage.getItem("tweets");
 
   // -------------------------------- Hooks --------------------------------
-  // Campos editáveis 
-  const [edit, setEdit] = useState(false);
-  const [text, setText] = useState<string>("");
-  const [id, setId] = useState<number>();
-
-  // Navegação
-  let navigate = useNavigate();
-
   // Cria um array de string que representa os tweets
   const [tweets, setTweets] = useState<TweetProps[]>(
     getTweets ? JSON.parse(getTweets) : []
   );
 
+  // Campos editáveis 
+  const [edit, setEdit] = useState(false);
+  const [text, setText] = useState<string>("");
+  const [id, setId] = useState<number>();
+
+  // Gerenciamento da lista automática
+  const [facts, setFacts] = useState<TweetProps[]>([]);
+  const [total, setTotal] = useState(0);
+
+  // Navegação
+  let navigate = useNavigate();
+
   //Armazena o array a cada modificação no componente tweets
   useEffect(() => {
-    console.log("useEffect");
     localStorage.setItem("tweets", JSON.stringify(tweets));
-    console.log(tweets);
   }, [tweets]);
 
+  // Reinicia o timer
+  useEffect(() => {
+    restart(expiryTimestamp, true);
+  }, [isRunning]);
+
+  // Contabiliza os novos tweets
+  useEffect(() => {
+    setTotal(facts.length);
+  }, [facts]);
+
   // -------------------------------- Handlers --------------------------------
+  // Busca uma quantidade aleatória de fatos na API para serem adicionados como tweets
+  const handleFacts = () => {
+    let randomLimit = Math.floor(Math.random() * 3) + 1;
+    let randomPage = Math.floor(Math.random() * 7268) + 1;
+    fetch('https://quote-garden.onrender.com/api/v3/quotes?limit=' + randomLimit + '&page=' + randomPage)
+      .then(res => res.json())
+      .then(data => {
+        let newTweets: TweetProps[] = [];
+        let date = new Date();
+        let lenght = Object.keys(tweets).length;
+        let lastId = 0;
+
+        if (lenght > 0)
+          lastId = tweets[lenght - 1].id + 1;
+        else
+          lastId = 1;
+
+        data.data.map((fact: any) => {
+          let newTweet: TweetProps = {
+            id: lastId++,
+            text: fact.quoteText,
+            title: fact.quoteAuthor,
+            date: format(date, 'dd MMMM')
+          }
+          newTweets = [...newTweets, newTweet];
+        });
+        setFacts([...facts, ...newTweets]);
+      }).catch((e) => { console.log(e) });
+  }
+
   // Vai para edição do Tweet
   const handleEdit = (tweet: TweetProps) => {
     setId(tweet.id);
@@ -54,6 +119,12 @@ export default function Home() {
     }
   }
 
+  // Adiciona os novos tweets na lista
+  const handleUpdate = () => {
+    setTweets([...tweets, ...facts]);
+    setFacts([]);
+  }
+
   // -------------------------------- Funções --------------------------------
   // Busca pelo Id do Tweet no Array
   function findId(id: number) {
@@ -71,7 +142,7 @@ export default function Home() {
       id: 0,
       title: 'You',
       text: text,
-      date: format(date, 'd MMMM')
+      date: format(date, 'dd MMMM')
     };
     let newList = [];
     let lenght = Object.keys(tweets).length;
@@ -142,7 +213,17 @@ export default function Home() {
           </div>
         </form>
       </section>
-
+      <div style={{ color: 'white' }}>
+        Atualização: <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+      </div>
+      <div style={{ color: 'white' }}>
+        {total > 0 &&
+          <button onClick={() => handleUpdate()}>
+            {total == 1 && <>{total} novo Tweet</>}
+            {total > 1 && <>{total} novos Tweets</>}
+          </button>
+        }
+      </div>
       <section>
         {tweets.slice(0).reverse().map((tweet) => {
           return (
