@@ -94,7 +94,7 @@ export default function Home() {
             id: lastId++,
             text: fact.quoteText,
             title: fact.quoteAuthor,
-            date: format(date, 'dd MMMM')
+            date: format(date, 'dd MMMM, H:mm')
           }
           newTweets = [...newTweets, newTweet];
         });
@@ -151,7 +151,7 @@ export default function Home() {
       id: 0,
       title: 'You',
       text: text,
-      date: format(date, 'dd MMMM')
+      date: format(date, 'dd MMMM H:mm')
     };
     let newList = [];
     let lenght = Object.keys(tweets).length;
@@ -172,10 +172,11 @@ export default function Home() {
   // Edita um Tweet 
   function editTweet() {
     let index = findId(id ? id : -1);
+    let date = new Date();
     if (index !== -1) {
       tweets[index].text = text ? text : "";
       tweets[index].title = 'You';
-      tweets[index].date = new Date().toUTCString();
+      tweets[index].date = format(date, 'dd MMMM, H:mm');
     }
     setTweets(tweets);
     clearFields();
